@@ -135,6 +135,9 @@ func (s *ContainerFindIncludes) Run(ctx *types.Context) error {
 	}
 
 	sketch := ctx.Sketch
+	// Add the folder containing the sketch to the include directories
+	appendIncludeFolder(ctx, cache, "", "", filepath.Dir(sketch.MainFile.Name))
+	
 	mergedfile, err := types.MakeSourceFile(ctx, sketch, filepath.Base(sketch.MainFile.Name)+".cpp")
 	if err != nil {
 		return i18n.WrapError(err)
